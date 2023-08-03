@@ -1,9 +1,8 @@
 const express = require('express')
 const app = express()
 // database
-const { MongoClient } = require("mongodb");
 require("dotenv").config()
-const databaseURI = process.env.MONGO_URI
+const { MongoClient } = require("mongodb");
 
 // body parser for the data in the request
 const bodyParser = require('body-parser')
@@ -11,6 +10,7 @@ const bodyParser = require('body-parser')
  app.use(bodyParser.urlencoded({ extended: true }))
  app.use(bodyParser.json())
 let db,
+    databaseURI = process.env.MONGO_URI,
     dbName = "tasks"
 
 MongoClient.connect(databaseURI, { useUnifiedTopology: true })
@@ -27,7 +27,11 @@ app.get('/', (request, response) => {
 })
 
 app.post('/createTask', (request, response) => {
-    let task = request.body.task
+    let task = {
+        task: request.body.task, 
+        completed: false
+    }
+    console.log(task)
     db.collection('tasks').insertOne(task)
     .then(res => response.redirect('/'))
     .catch(err => {
