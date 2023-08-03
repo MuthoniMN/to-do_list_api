@@ -1,8 +1,15 @@
 const express = require('express')
 const app = express()
+// database
 const { MongoClient } = require("mongodb");
 require("dotenv").config()
 const databaseURI = process.env.MONGO_URI
+
+// body parser for the data in the request
+const bodyParser = require('body-parser')
+ // creates an object from the form data and stores it in the request body property
+ app.use(bodyParser.urlencoded({ extended: true }))
+ app.use(bodyParser.json())
 
 let db,
     dbName = "tasks"
@@ -20,4 +27,9 @@ app.get('/', (request, response) => {
     response.sendFile(__dirname + '/index.html')
 })
 
+app.post('/createTask', (request, response) => {
+    console.log(request)
+    // let task = request.body.task
+    // db.collection('tasks').insertOne()
+})
 app.listen(5000, console.log("The server is running!"))
