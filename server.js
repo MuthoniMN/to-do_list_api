@@ -6,9 +6,9 @@ const { MongoClient } = require("mongodb");
 
 // body parser for the data in the request
 const bodyParser = require('body-parser')
- // creates an object from the form data and stores it in the request body property
- app.use(bodyParser.urlencoded({ extended: true }))
- app.use(bodyParser.json())
+// creates an object from the form data and stores it in the request body property
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 let db,
     databaseURI = process.env.MONGO_URI,
     dbName = "tasks"
@@ -19,22 +19,30 @@ MongoClient.connect(databaseURI, { useUnifiedTopology: true })
         db = client.db(dbName)
     })
     .catch(err => {
-        console.error(err)  
+        console.error(err)
     })
 
-app.get('/', (request, response) => {
-    response.sendFile(__dirname + '/index.html')
+
+app.set('view engine', 'ejs')    
+
+app.get("/", (request, response) => {
+    // the find() gets all the data in the tasks collection
+    // the toArray() converts the data into an array of objects
+    db.collection("tasks").find().toArray()
+    .then( tasks => {
+        response.render('index.ejs', { items: tasks})
+    })
 })
 
 app.post('/createTask', (request, response) => {
     let task = {
-        task: request.body.task, 
+        task: request.body.task,
         completed: false
     }
     db.collection('tasks').insertOne(task)
-    .then(res => response.redirect('/'))
-    .catch(err => {
-        console.error(err)
-    })
+        .then(res => response.redirect('/'))
+        .catch(err => {
+            console.error(err)
+        })
 })
 app.listen(5000, console.log("The server is running!"))

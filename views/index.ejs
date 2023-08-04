@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <ul>
+        <% for(let a = 0; a < items.length; a++){ %>
+            <li>
+                <% if(items[a].completed) {  %>
+                    <input type="checkbox" checked>
+                    <span class="completed"><%= items[a].task %></span>
+                <% } else { %>    
+                    <input type="checkbox">
+                    <span><%= items[a].task %></span>
+                <% } %>
+            </li>
+        <% } %>
+    </ul>
+    <form action="/createTask" method="post">
+        <input type="text" name="task" id="task">
+        <input type="submit" value="Add Task">
+    </form>
+</body>
+</html>
