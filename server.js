@@ -31,7 +31,6 @@ app.post('/createTask', (request, response) => {
         task: request.body.task, 
         completed: false
     }
-    console.log(task)
     db.collection('tasks').insertOne(task)
     .then(res => response.redirect('/'))
     .catch(err => {
