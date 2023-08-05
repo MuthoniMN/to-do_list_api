@@ -49,6 +49,6 @@ app.post('/createTask', (request, response) => {
 // access the public directory
 app.use(express.static('public'))
 app.put('/completeTask', (request, response) => {
-    
+    console.log('Task Completed!')
 })
 app.listen(5000, console.log("The server is running!"))
