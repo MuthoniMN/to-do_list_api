@@ -22,7 +22,7 @@ MongoClient.connect(databaseURI, { useUnifiedTopology: true })
         console.error(err)
     })
 
-
+// tells the server the templating language we are using
 app.set('view engine', 'ejs')    
 
 app.get("/", (request, response) => {
@@ -44,5 +44,11 @@ app.post('/createTask', (request, response) => {
         .catch(err => {
             console.error(err)
         })
+})
+
+// access the public directory
+app.use(express.static('public'))
+app.put('/completeTask', (request, response) => {
+    
 })
 app.listen(5000, console.log("The server is running!"))
