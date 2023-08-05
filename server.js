@@ -50,32 +50,21 @@ app.post('/createTask', (request, response) => {
 app.use(express.static('public'))
 app.put('/completeTask', (request, response) => {
     console.log('Task Completed!')
-    db.collection('tasks').updateOne( 
-        // find the task from the request body in the database
-        { task: request.body.currentTask }, {
-            // changing the completed property
-        $set: {
-            completed: true 
-        }
-    }, {
-        //  if the task is not in the database, create the task
-        upsert: true
-    })
-    //the response that is sent back to the fetch request
-    .then(res => {
-        response.json('Success')
-    })
-    .catch(err => console.error(err))
+    updatingDatabase(true)
 })
 
 app.put('/undoComplete', (request, response) => {
     console.log('Task is not completed')
+    updatingDatabase(false)
+})
+
+function updatingDatabase(boolean) {
     db.collection('tasks').updateOne( 
         // find the task from the request body in the database
         { task: request.body.currentTask }, {
             // changing the completed property
         $set: {
-            completed: false 
+            completed: boolean 
         }
     }, {
         //  if the task is not in the database, create the task
@@ -86,5 +75,5 @@ app.put('/undoComplete', (request, response) => {
         response.json('Success')
     })
     .catch(err => console.error(err))
-})
+}
 app.listen(5000, console.log("The server is running!"))
