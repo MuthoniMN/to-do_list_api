@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List App</title>
+    <style>
+        .completed {
+            color: grey;
+            text-decoration: line-through;
+        }
+    </style>
 </head>
 <body>
     <h1>To-Do List</h1>
@@ -15,7 +21,7 @@
                     <span class="completed"><%= items[a].task %></span>
                 <% } else { %>    
                     <input type="checkbox">
-                    <span><%= items[a].task %></span>
+                    <span class="task"><%= items[a].task %></span>
                 <% } %>
             </li>
         <% } %>
