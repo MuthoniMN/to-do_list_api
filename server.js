@@ -92,5 +92,13 @@ function updatingDatabase(task, boolean, response) {
     .catch(err => console.error(err))
 }
 
-
+app.delete('/deleteTask', (request, response) => {
+    db.collection('tasks').deleteOne( {task: request.body.currentTask})
+        //the response that is sent back to the fetch request
+        .then(res => {
+            response.json('Success')
+        })
+        .catch(err => console.error(err))
+    console.log("Task has been deleted")
+})
 app.listen(5000, console.log("The server is running!"))
