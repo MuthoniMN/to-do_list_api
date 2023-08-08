@@ -31,7 +31,7 @@ function sendRequest(a, path) {
 deleteBtns.forEach(btn => {
     btn.addEventListener('click', _ => {
         // get the text associated with the delete button
-        let task = btn.parentNode.children[1].textContent
+        let task = btn.parentNode.children[1].textContent.trim()
 
         fetch('/deleteTask', {
             method: 'delete',

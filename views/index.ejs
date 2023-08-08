@@ -5,18 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List App</title>
-    <style>
-        .completed {
-            color: grey;
-            text-decoration: line-through;
-        }
-    </style>
     <script src="https://kit.fontawesome.com/0acc85d45b.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <h1>To-Do List</h1>
     <section class="allTasks">
+        <form action="/createTask" method="post">
+            <div class="inputWrapper">
+                <label for="task">Task: </label>
+                <input type="text" name="task" id="task">
+            </div>
+            <div class="inputWrapper">
+                <label for="priority">Priority: </label>
+                <input type="text" name="priority" id="priority" list="priorities">
+            </div>
+            <div class="inputWrapper">
+                <label for="category">Category: </label>
+                <input type="text" name="category" id="category" list="categories">
+            </div>
+            <datalist id="priorities">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </datalist>
+            <datalist id="categories">
+                <option value="Personal Development"></option>
+                <option value="Health"></option>
+                <option value="Financial"></option>
+                <option value="Career"></option>
+                <option value="Work"></option>
+                <option value="Social"></option>
+            </datalist>
+            <input type="submit" value="Add Task">
+        </form>
         <ul class="high">
             <h3>High Priority</h3>
             <% for(let a=0; a < items.length; a++){ %>
@@ -93,35 +119,6 @@
                         <% } %>
         </ul>
     </section>
-    
-    <form action="/createTask" method="post">
-        <div class="inputWrapper">
-            <label for="task">Task: </label>
-            <input type="text" name="task" id="task">
-        </div>
-        <div class="inputWrapper">
-            <label for="priority">Priority: </label>
-            <input type="text" name="priority" id="priority" list="priorities">
-        </div>
-        <div class="inputWrapper">
-            <label for="category">Category: </label>
-            <input type="text" name="category" id="category" list="categories">
-        </div>
-        <datalist id="priorities">
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-        </datalist>
-        <datalist id="categories">
-            <option value="Personal Development"></option>
-            <option value="Health"></option>
-            <option value="Financial"></option>
-            <option value="Career"></option>
-            <option value="Work"></option>
-            <option value="Social"></option>
-        </datalist>
-        <input type="submit" value="Add Task">
-    </form>
 
     <script src="js/main.js"></script>
 </body>
