@@ -45,6 +45,8 @@ app.post('/createTask', (request, response) => {
     // creating the task object
     let task = {
         task: request.body.task,
+        priority: request.body.priority,
+        category: request.body.category,
         completed: false
     }
     // adding the task object into the database
