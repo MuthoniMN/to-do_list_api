@@ -1,13 +1,18 @@
 *{
     font-family: 'Barlow', sans-serif;
 }
+h1{
+    text-align: center;
+}
 .allTasks{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .allTasks > *{
     flex-basis: 20%;
+    min-width: 250px;
     list-style: none;
     margin: 0;
 }
