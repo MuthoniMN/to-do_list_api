@@ -15,6 +15,7 @@ app.use(bodyParser.json())
 let databaseURI = process.env.MONGO_URI
 
 const client = new MongoClient(databaseURI)
+const db = client.db("tasks")
 
 // tells the server the templating language we are using
 app.set('view engine', 'ejs')    
