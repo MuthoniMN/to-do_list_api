@@ -12,20 +12,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // global database variables
-let db,
-    databaseURI = process.env.MONGO_URI,
-    dbName = "tasks"
+let databaseURI = process.env.MONGO_URI
 
-// connecting the database
-MongoClient.connect(databaseURI, { useUnifiedTopology: true })
-    .then(client => {
-        console.log(`Connected to the ${dbName} database`)
-        // reassign the db variable
-        db = client.db(dbName)
-    })
-    .catch(err => {
-        console.error(err)
-    })
+const client = new MongoClient(databaseURI)
 
 // tells the server the templating language we are using
 app.set('view engine', 'ejs')    
@@ -100,10 +89,20 @@ function updatingDatabase(task, boolean, response) {
 app.delete('/deleteTask', (request, response) => {
     db.collection('tasks').deleteOne( { task: request.body.currentTask })
         //the response that is sent back to the fetch request
-        .then(res => {
+        .then(res => {z
             response.json('Success')
         })
         .catch(err => console.error(err))
     console.log("Task has been deleted")
 })
-app.listen(PORT, console.log("The server is running!"))
+
+// connecting the database
+client.connect(err =>{
+        if(err){
+            console.error(err); 
+            return false;
+        }
+        
+    app.listen(PORT, console.log("The server is running!"))
+    }
+)
