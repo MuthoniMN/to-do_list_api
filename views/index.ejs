@@ -30,7 +30,31 @@
         <% } %>
     </ul>
     <form action="/createTask" method="post">
+        <div class="inputWrapper">
+            <label for="task">Task: </label>
         <input type="text" name="task" id="task">
+        </div>
+        <div class="inputWrapper">
+            <label for="priority">Priority: </label>
+            <input type="text" name="priority" id="priority" list="priorities">
+        </div>
+        <div class="inputWrapper">
+            <label for="category">Category: </label>
+            <input type="text" name="category" id="category" list="categories">
+        </div>
+        <datalist id="priorities">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </datalist>
+        <datalist id="categories">
+            <option value="Personal Development"></option>
+            <option value="Health"></option>
+            <option value="Financial"></option>
+            <option value="Career"></option>
+            <option value="Work"></option>
+            <option value="Social"></option>
+        </datalist>
         <input type="submit" value="Add Task">
     </form>
 
