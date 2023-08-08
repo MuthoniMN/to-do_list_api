@@ -66,7 +66,6 @@ app.put('/undoComplete', (request, response) => {
 })
 
 function updatingDatabase(task, boolean, response) {
-    console.log(task.trim())
     db.collection('tasks').updateOne( 
         // find the task from the request body in the database
         { task: task.trim()}, {
