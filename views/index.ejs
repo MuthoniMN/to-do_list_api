@@ -16,24 +16,71 @@
 
 <body>
     <h1>To-Do List</h1>
-    <ul>
+    <ul class="high">
+        <h3>High Priority</h3>
         <% for(let a=0; a < items.length; a++){ %>
-            <li class="to-doItem">
-                <% if(items[a].completed) { %>
-                    <input type="checkbox" checked>
-                    <span class="completed">
-                        <%= items[a].task %>
-                    </span>
-                    <i class="fa-solid fa-trash"></i>
-                    <% } else { %>
-                        <input type="checkbox">
-                        <span class="task">
+            <% if(items[a].priority==="High" ) { %>
+                <li class="to-doItem">
+                    <% if(items[a].completed) { %>
+                        <input type="checkbox" checked>
+                        <span class="completed">
                             <%= items[a].task %>
                         </span>
                         <i class="fa-solid fa-trash"></i>
-                        <% } %>
-            </li>
-            <% } %>
+                        <% } else { %>
+                            <input type="checkbox">
+                            <span class="task">
+                                <%= items[a].task %>
+                            </span>
+                            <i class="fa-solid fa-trash"></i>
+                            <% } %>
+                </li>
+                <% } %>
+                    <% } %>
+    </ul>
+    <ul class="medium">
+        <h3>Medium Priority</h3>
+        <% for(let a=0; a < items.length; a++){ %>
+            <% if(items[a].priority==="Medium" ) { %>
+                <li class="to-doItem">
+                    <% if(items[a].completed) { %>
+                        <input type="checkbox" checked>
+                        <span class="completed">
+                            <%= items[a].task %>
+                        </span>
+                        <i class="fa-solid fa-trash"></i>
+                        <% } else { %>
+                            <input type="checkbox">
+                            <span class="task">
+                                <%= items[a].task %>
+                            </span>
+                            <i class="fa-solid fa-trash"></i>
+                            <% } %>
+                </li>
+                <% } %>
+                    <% } %>
+    </ul>
+    <ul class="low">
+        <h3>Low Priority</h3>
+        <% for(let a=0; a < items.length; a++){ %>
+            <% if(items[a].priority==="Low" ) { %>
+                <li class="to-doItem">
+                    <% if(items[a].completed) { %>
+                        <input type="checkbox" checked>
+                        <span class="completed">
+                            <%= items[a].task %>
+                        </span>
+                        <i class="fa-solid fa-trash"></i>
+                        <% } else { %>
+                            <input type="checkbox">
+                            <span class="task">
+                                <%= items[a].task %>
+                            </span>
+                            <i class="fa-solid fa-trash"></i>
+                            <% } %>
+                </li>
+                <% } %>
+                    <% } %>
     </ul>
     <form action="/createTask" method="post">
         <div class="inputWrapper">
