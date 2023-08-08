@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const PORT = process.env.PORT
 // database
 require("dotenv").config()
 const { MongoClient } = require("mongodb");
@@ -105,4 +106,4 @@ app.delete('/deleteTask', (request, response) => {
         .catch(err => console.error(err))
     console.log("Task has been deleted")
 })
-app.listen(5000, console.log("The server is running!"))
+app.listen(PORT, console.log("The server is running!"))
