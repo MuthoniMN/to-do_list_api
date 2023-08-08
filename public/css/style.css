@@ -33,6 +33,14 @@ li{
     text-decoration: line-through;
 }
 
+li > p{
+    display: block;
+    width: fit-content;
+    padding: 4px;
+    background-color: lightblue;
+    border-radius: 6px;
+}
+
 form{
     text-align: center;
 }
