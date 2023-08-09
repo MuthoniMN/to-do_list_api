@@ -1,7 +1,8 @@
-# To-Do List6
+# To-Do List
 This a to-do list web app that allows you to add tasks, complete tasks and delete tasks
 
 **Link to project:** https://uninterested-ox-mittens.cyclic.app/
+
 **Link to blog tutorial** https://mitchcodes.hashnode.dev/how-to-create-a-to-do-list-web-app-using-node
 
 ![alt tag](http://placecorgi.com/1200/650)
