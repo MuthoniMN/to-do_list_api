@@ -96,13 +96,9 @@ app.delete('/deleteTask', (request, response) => {
 })
 
 // connecting the database
-client.connect(err =>{
-        if(err){
-            console.error(err); 
-            return false;
-        }else{
-            console.log("Connected to the database")
-            return app.listen(PORT, console.log("The server is running!"))
-        }
-    }
-)
+client.connect()
+.then(res => {
+    console.log("Connected to the database")
+     app.listen(PORT, console.log("The server is running!"))
+})
+.catch(err => console.error(err))
