@@ -15,6 +15,7 @@ app.use(bodyParser.json())
 let databaseURI = process.env.MONGO_URI
 
 const client = new MongoClient(databaseURI, { useNewUrlParser: true, useUnifiedTopology: true })
+const db = client.db("tasks")
 
 // tells the server the templating language we are using
 app.set('view engine', 'ejs')    
@@ -23,7 +24,7 @@ app.set('view engine', 'ejs')
 app.get("/", (request, response) => {
     // the find() gets all the data in the tasks collection
     // the toArray() converts the data into an array of objects
-    client.db("tasks").collection("tasks").find().toArray()
+    db.collection("tasks").find().toArray()
     .then( tasks => {
         // the items property should be used in the template
         response.render('index.ejs', { items: tasks})
@@ -40,7 +41,7 @@ app.post('/createTask', (request, response) => {
         completed: false
     }
     // adding the task object into the database
-    client.db("tasks").collection('tasks').insertOne(task)
+    db.collection('tasks').insertOne(task)
     // this should be done if the task has been successful
         .then(res => response.redirect('/'))
         .catch(err => {
@@ -66,7 +67,7 @@ app.put('/undoComplete', (request, response) => {
 })
 
 function updatingDatabase(task, boolean, response) {
-    client.db("tasks").collection('tasks').updateOne( 
+    db.collection('tasks').updateOne( 
         // find the task from the request body in the database
         { task: task.trim()}, {
             // changing the completed property
@@ -86,7 +87,7 @@ function updatingDatabase(task, boolean, response) {
 
 // deleting a task
 app.delete('/deleteTask', (request, response) => {
-    client.db("tasks").collection('tasks').deleteOne( { task: request.body.currentTask })
+    db.collection('tasks').deleteOne( { task: request.body.currentTask })
         //the response that is sent back to the fetch request
         .then(res => {
             response.json('Success')
