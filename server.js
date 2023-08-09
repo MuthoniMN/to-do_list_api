@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 5000
 // database
 require("dotenv").config()
 const { MongoClient } = require("mongodb");
@@ -14,8 +14,7 @@ app.use(bodyParser.json())
 // global database variables
 let databaseURI = process.env.MONGO_URI
 
-const client = new MongoClient(databaseURI)
-const db = client.db("tasks")
+const client = new MongoClient(databaseURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // tells the server the templating language we are using
 app.set('view engine', 'ejs')    
@@ -24,7 +23,7 @@ app.set('view engine', 'ejs')
 app.get("/", (request, response) => {
     // the find() gets all the data in the tasks collection
     // the toArray() converts the data into an array of objects
-    db.collection("tasks").find().toArray()
+    client.db("tasks").collection("tasks").find().toArray()
     .then( tasks => {
         // the items property should be used in the template
         response.render('index.ejs', { items: tasks})
@@ -41,7 +40,7 @@ app.post('/createTask', (request, response) => {
         completed: false
     }
     // adding the task object into the database
-    db.collection('tasks').insertOne(task)
+    client.db("tasks").collection('tasks').insertOne(task)
     // this should be done if the task has been successful
         .then(res => response.redirect('/'))
         .catch(err => {
@@ -67,7 +66,7 @@ app.put('/undoComplete', (request, response) => {
 })
 
 function updatingDatabase(task, boolean, response) {
-    db.collection('tasks').updateOne( 
+    client.db("tasks").collection('tasks').updateOne( 
         // find the task from the request body in the database
         { task: task.trim()}, {
             // changing the completed property
@@ -87,9 +86,9 @@ function updatingDatabase(task, boolean, response) {
 
 // deleting a task
 app.delete('/deleteTask', (request, response) => {
-    db.collection('tasks').deleteOne( { task: request.body.currentTask })
+    client.db("tasks").collection('tasks').deleteOne( { task: request.body.currentTask })
         //the response that is sent back to the fetch request
-        .then(res => {z
+        .then(res => {
             response.json('Success')
         })
         .catch(err => console.error(err))
@@ -101,8 +100,9 @@ client.connect(err =>{
         if(err){
             console.error(err); 
             return false;
+        }else{
+            console.log("Connected to the database")
+            return app.listen(PORT, console.log("The server is running!"))
         }
-        
-    app.listen(PORT, console.log("The server is running!"))
     }
 )
